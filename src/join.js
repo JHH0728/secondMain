@@ -35,6 +35,7 @@ const Join = () => {
             id: idRef.current.value,
           })
           .then((res) => {
+            console.log("아이디 중복 체크 =>" + res);
             if (res.data[0].cnt === 1) {
               idcheck.innerText = '아이디 중복';
               idcheck.style = 'color:red';
