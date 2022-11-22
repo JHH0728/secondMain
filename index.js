@@ -104,8 +104,9 @@ app.post('/login', (req, res) => {
   var id = req.body.id;
   var pw = req.body.pw;
 
-  const sqlQuery = "select count(*) as 'cnt' from user2 where user_id=? and user_pass=?;";
+  const sqlQuery = "select user_name from user2 where user_id=? and user_pass=?;";
   db.query(sqlQuery, [id, pw], (err, result) => {
+    console.log('이름 확인 => ' + result);
     res.send(result);
   });
 });
@@ -214,6 +215,51 @@ app.post('/user_login', (req, res) => {
     res.send(result);
   });
 });
+
+app.post('/getstory', (req, res) => {
+  console.log('/getstory', req.body);
+  var scenario_num = req.body.scenario_num;
+  var chapter_num = req.body.chapter_num;
+  var scene_num = req.body.scene_num;
+
+  const sqlQuery =
+    'select speak_num, speak_story from scenario where scenario_num=? and chapter_num=? and scene_num=?;';
+  db.query(sqlQuery, [scenario_num, chapter_num, scene_num], (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+})
+
+app.post('/scecall', (req, res) => {
+  console.log('/scecall', req.body);
+  var scenario_num = req.body.scenario_num;
+  var chapter_num = req.body.chapter_num;
+  var scene_num = req.body.scene_num;
+  var speak_num = req.body.speak_num
+
+  const sqlQuery =
+    'select speak_story from scenario where scenario_num=? and chapter_num=? and scene_num=? and speak_num=?;';
+  db.query(sqlQuery, [scenario_num, chapter_num, scene_num, speak_num], (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+})
+
+app.post('/sceupdate', (req, res) => {
+  console.log('/sceupdate', req.body);
+  var scenario_num = req.body.scenario_num;
+  var chapter_num = req.body.chapter_num;
+  var scene_num = req.body.scene_num;
+  var speak_num = req.body.speak_num;
+  var speak_story = req.body.speak_story;
+
+  const sqlQuery =
+    'update scenario set speak_story=? where scenario_num=? and chapter_num=? and scene_num=? and speak_num=?;';
+  db.query(sqlQuery, [speak_story, scenario_num, chapter_num, scene_num, speak_num], (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+})
 
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`);

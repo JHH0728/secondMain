@@ -184,7 +184,7 @@ const Join = () => {
                             id="nick"
                             name="nick"
                             placeholder="닉네임을 입력해주세요"
-                            calssName="text_input"
+                            className="text_input"
                             ref={nickRef}
                             defaultValue=""/>
                     </div>
@@ -209,7 +209,7 @@ const Join = () => {
                             id="tell"
                             name="tell"
                             placeholder="전화번호를 입력해주세요('-'제외)"
-                            calssName="text_input"
+                            className="text_input"
                             ref={tellRef}
                             defaultValue=""
                         />

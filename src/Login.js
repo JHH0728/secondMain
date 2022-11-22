@@ -20,19 +20,16 @@ const Login = () => {
       return false;
     }
 
-    console.log(
-      'LoginForm:window.sessionStorage(login_id) =>',
-      window.sessionStorage.getItem('id')
-    );
-
     axios
       .post('http://localhost:8008/login', {
         id: idRef.current.value,
         pw: pwRef.current.value
       })
       .then((res) => {
-        console.log('handleLogin =>', res.data[0]);
-        if (res.data[0].cnt === 1) {
+        console.log('handleLogin =>', res.data[0].user_name);
+        if (res.data[0] !== undefined) {
+          window.sessionStorage.setItem('name', res.data[0].user_name);
+          console.log('로페 이름 확인 => ' + sessionStorage.getItem('name'));
           window.sessionStorage.setItem('id', idRef.current.value);
           alert("세션: "+window.sessionStorage.getItem('id'));
           Navigate('/');
